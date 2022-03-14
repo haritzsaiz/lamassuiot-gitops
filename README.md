@@ -1,2 +1,0 @@
-# lamassu-kubernetes
-
