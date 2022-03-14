@@ -4,7 +4,7 @@ Aplicar todo:
 kubectl apply -f certs.yml
 kubectl apply -f consul.yml
 kubectl apply -f vault.yml
-kubectl apply -f lamassu-ca-v5.yml
+kubectl apply -f lamassu-ca-v4.yml
 
 
 
