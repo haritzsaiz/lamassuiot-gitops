@@ -1,12 +1,14 @@
 ```
+Aplicar todo:
+
+kubectl apply -f certs.yml
 kubectl apply -f consul.yml
 kubectl apply -f vault.yml
-kubectl apply -f lamassu-ca.yml 
+kubectl apply -f lamassu-ca-v5.yml
 
 
 
-
-Borrar todo y Aplicar todo:
+Borrar todo:
 
 kubectl delete -f lamassu-ca-v4.yml
 kubectl delete -f vault.yml
@@ -21,8 +23,4 @@ kubectl delete secret vault-cert-secret
 kubectl delete secret downstream-crt-secret
 kubectl delete secret root-ca-secret
 
-kubectl apply -f certs.yml
-kubectl apply -f consul.yml
-kubectl apply -f vault.yml
-kubectl apply -f lamassu-ca-v5.yml
 ```
