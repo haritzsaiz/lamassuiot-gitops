@@ -4,13 +4,13 @@ Aplicar todo:
 kubectl apply -f certs.yml
 kubectl apply -f consul.yml
 kubectl apply -f vault.yml
-kubectl apply -f lamassu-ca-v4.yml
+kubectl apply -f lamassu-ca-v7.yml
 
 
 
 Borrar todo:
 
-kubectl delete -f lamassu-ca-v4.yml
+kubectl delete -f lamassu-ca-v7.yml
 kubectl delete -f vault.yml
 kubectl delete -f consul.yml
 kubectl delete -f certs.yml
