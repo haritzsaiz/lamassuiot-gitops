@@ -1,6 +1,6 @@
 **HELM:**
 
-```
+
 Helm install
 ```
 helm install lamassu-k8s . -n lamassu-k8s
@@ -11,7 +11,7 @@ Helm uninstall
 helm uninstall lamassu-k8s -n lamassu-k8s
 ```
 
-To delete the all secrets created
+Delete all secrets created
 ```
 kubectl delete secret vault-credentials-file -n lamassu-k8s
 kubectl delete secret lamassu-ca-vault-credentials -n lamassu-k8s
@@ -22,7 +22,7 @@ kubectl delete secret downstream-crt-secret -n lamassu-k8s
 kubectl delete secret root-ca-secret -n lamassu-k8s
 ```
 
-To delete the created in the folder
+Delete the folder created in the node
 ```
 sudo rm -r ../../../../../data/
 ```
