@@ -1,7 +1,19 @@
 ```
 KUBECTL:
 
-Borrar todo y Aplicar todo:
+Aplicar todo:
+
+kubectl apply -f certs.yml
+kubectl apply -f consul.yml
+kubectl apply -f vault.yml
+kubectl apply -f secret-job.yml
+kubectl apply -f rabbitmq.yml
+kubectl apply -f jaeger.yml
+kubectl apply -f lamassu-ca-v7.yml
+kubectl apply -f lamassu-db.yml
+kubectl apply -f auth.yml
+
+Borrar todo: 
 
 kubectl delete -f auth.yml
 kubectl delete -f lamassu-db.yml
@@ -26,15 +38,4 @@ kubectl delete secret downstream-crt-secret
 kubectl delete secret root-ca-cert-secret
 
 sudo rm -r ../../../../../data/
-
-kubectl apply -f certs.yml
-kubectl apply -f consul.yml
-kubectl apply -f vault.yml
-kubectl apply -f secret-job.yml
-kubectl apply -f rabbitmq.yml
-kubectl apply -f jaeger.yml
-kubectl apply -f lamassu-ca-v7.yml
-kubectl apply -f lamassu-db.yml
-kubectl apply -f auth.yml
-
 ```
