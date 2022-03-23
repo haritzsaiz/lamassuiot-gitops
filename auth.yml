@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image:  auth:v1.0.5
+          image: lamassuiot/lamassu-auth:v1.0.5
           volumeMounts:          
             - name: auth-tls-certificates
               mountPath: /etc/x509/https/tls.crt
@@ -45,7 +45,8 @@ spec:
               mountPath: /etc/x509/https/tls.key
               subPath: tls.key
           ports:
-            - containerPort:  8443
+            - containerPort: 8080
+            - containerPort: 8443
           env:
             - name: DB_VENDOR
               value: postgres
@@ -79,7 +80,10 @@ spec:
     app: auth
   type: ClusterIP
   ports:
-  - name: auth
+  - name: auth-http
+    port: 8080
+    targetPort: 8080 
+  - name: auth-https
     port: 8443
     targetPort: 8443 
 ---
@@ -97,6 +101,16 @@ spec:
     - auth.dev.lamassu.io
     secretName: downstream-crt-secret
   rules:
+  - host: auth.dev.lamassu.io
+    http: 
+      paths:
+      - pathType: Prefix
+        path: /
+        backend: 
+          service: 
+            name: "auth"
+            port:
+              number: 8080
   - host: auth.dev.lamassu.io
     http: 
       paths:
