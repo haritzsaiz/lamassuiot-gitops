@@ -25,13 +25,13 @@ kubectl delete -f vault.yml
 kubectl delete -f consul.yml
 kubectl delete -f certs.yml
 
-kubectl delete secret lamassu-ca-vault-credentials
-kubectl delete secret vault-credentials-file
 kubectl delete secret auth-cert-secret
 kubectl delete secret jaeger-cert-secret
 kubectl delete secret lamassu-db-cert-secret
 kubectl delete secret rabbitmq-cert-secret
 kubectl delete secret lamassu-ca-cert-secret
+kubectl delete secret lamassu-ca-vault-credentials
+kubectl delete secret vault-credentials-file
 kubectl delete secret vault-cert-secret
 kubectl delete secret consul-cert-secret
 kubectl delete secret downstream-crt-secret
