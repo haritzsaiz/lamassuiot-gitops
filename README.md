@@ -14,7 +14,6 @@ kubectl apply -f auth.yml
 ```
 Borrar los YML: 
 ```
-kubectl delete -f auth.yml
 kubectl delete -f certs.yml
 kubectl delete -f consul.yml
 kubectl delete -f vault.yml
