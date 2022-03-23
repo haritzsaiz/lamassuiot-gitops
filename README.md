@@ -25,7 +25,7 @@ kubectl delete secret vault-cert-secret
 kubectl delete secret downstream-crt-secret
 kubectl delete secret root-ca-cert-secret
 
-sudo rm -r data
+sudo rm -r ../../../../../data/
 
 kubectl apply -f certs.yml
 kubectl apply -f consul.yml
