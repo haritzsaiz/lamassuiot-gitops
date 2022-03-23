@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
         - name: vault
-          image:  vault:1.7.3
+          image: vault:1.7.3
           volumeMounts:
             - name: vault-json-config
               mountPath: /vault/config/config.json
@@ -80,6 +80,8 @@ spec:
           env:
             - name: VAULT_DISABLE_MLOCK
               value: "true"
+            # - name: VAULT_API_ADDR
+            #   value: https://vault.dev.lamassu.io:8200
           command: ["vault", "server", "-config", "/vault/config/config.json"]
       restartPolicy: Always
       volumes:
