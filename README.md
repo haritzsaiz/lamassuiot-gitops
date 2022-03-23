@@ -7,9 +7,9 @@ kubectl apply -f certs.yml
 kubectl apply -f consul.yml
 kubectl apply -f vault.yml
 kubectl apply -f secret-job.yml
+kubectl apply -f lamassu-ca-v7.yml
 kubectl apply -f rabbitmq.yml
 kubectl apply -f jaeger.yml
-kubectl apply -f lamassu-ca-v7.yml
 kubectl apply -f lamassu-db.yml
 kubectl apply -f auth.yml
 
