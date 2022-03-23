@@ -23,7 +23,7 @@ kubectl delete secret rabbitmq-cert-secret
 kubectl delete secret lamassu-ca-cert-secret
 kubectl delete secret vault-cert-secret
 kubectl delete secret downstream-crt-secret
-kubectl delete secret root-ca-secret
+kubectl delete secret root-ca-cert-secret
 
 sudo rm -r data
 
