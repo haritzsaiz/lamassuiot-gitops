@@ -1,6 +1,6 @@
 KUBECTL:
 
-Aplicar todo:
+Aplicar los YML:
 ```
 kubectl apply -f certs.yml
 kubectl apply -f consul.yml
