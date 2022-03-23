@@ -39,6 +39,7 @@ kubectl delete secret consul-cert-secret
 kubectl delete secret downstream-crt-secret
 kubectl delete secret root-ca-cert-secret
 ```
-
+Borrar las carpetas de los PV
+```
 sudo rm -r ../../../../../data/
 ```
