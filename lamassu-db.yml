@@ -29,6 +29,21 @@ spec:
     requests:
       storage:  100Mi
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lamassu-db-pv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 100Mi
+  claimRef:
+    namespace: default
+    name: lamassu-db-pvc
+  hostPath:
+    path: "/data/lamassu-db"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -50,7 +65,7 @@ spec:
         - name: lamassu-db
           image: lamassuiot/lamassu-db:v1.0.6
           volumeMounts:
-            - name: lamassu-db-pvc
+            - name: lamassu-db-pv
               mountPath: /var/lib/postgresql/data
           ports:
             - containerPort: 5432
@@ -63,7 +78,7 @@ spec:
               value: admin
       restartPolicy: Always
       volumes:
-        - name: lamassu-db-pvc
+        - name: lamassu-db-pv
           persistentVolumeClaim:
             claimName: lamassu-db-pvc
 ---
