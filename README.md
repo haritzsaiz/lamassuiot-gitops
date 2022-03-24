@@ -40,5 +40,5 @@ kubectl delete secret root-ca-cert-secret
 ```
 Borrar las carpetas "data" creadas en los nodos
 ```
-sudo rm -r ../../../../../data/
+sudo rm -r data/
 ```
