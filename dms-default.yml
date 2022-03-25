@@ -1,0 +1,99 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dms-default-cert
+  namespace: {{.Release.Namespace}}
+spec:
+  isCA: false
+  commonName: dms-default
+  dnsNames:
+    - "dms-default"
+  secretName: dms-default-cert-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: lamassu-ca-issuer
+    kind: Issuer
+    group: cert-manager.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:  
+  name: dms-default-deployment
+  namespace: {{.Release.Namespace}}
+  labels:
+    app: dms-default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dms-default
+  template:
+    metadata:
+      labels:
+        app: dms-default
+    spec:     
+      containers:
+        - name: dms-default
+          image: 
+          env:
+            - name: PORT
+              value: 5000
+            - name: DOMAIN
+              value: {{.Values.Domain}}
+            
+          volumeMounts:
+            - name: dms-default-tls-certificates
+              mountPath: /app/https.crt
+              subPath: tls.crt
+            - name: dms-default-tls-certificates
+              mountPath: /app/https.key
+              subPath: tls.key
+
+          ports:
+            - containerPort: 5000
+      restartPolicy: Always
+      volumes:
+        - name: dms-default-tls-certificates
+          secret:
+            secretName: dms-default-cert-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dms-default
+  namespace: {{.Release.Namespace}}
+spec:
+  selector:
+    app: dms-default
+  type: ClusterIP
+  ports:
+  - name: dms-default-https
+    port: 5000
+    targetPort: 5000 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dms-default-ingress
+  namespace: {{.Release.Namespace}}
+  annotations: 
+    cert-manager.io/issuer: "lamassu-ca-issuer"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - {{.Values.Domain}}
+    secretName: downstream-crt-secret
+  rules:
+  - host: {{.Values.Domain}}
+    http: 
+      paths:
+      - pathType: Prefix
+        path: /
+        backend: 
+          service: 
+            name: "dms-default-https"
+            port:
+              number: 5000
