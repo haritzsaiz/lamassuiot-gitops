@@ -5,9 +5,10 @@ metadata:
   namespace: default
 spec:
   isCA: false
-  commonName: auth
+  commonName: auth*
   dnsNames:
     - "auth"
+    - "auth*"
   secretName: auth-cert-secret
   privateKey:
     algorithm: ECDSA
@@ -80,10 +81,10 @@ spec:
     app: auth
   type: ClusterIP
   ports:
-  - name: auth-http
+  - name: http
     port: 8080
     targetPort: 8080 
-  - name: auth-https
+  - name: https
     port: 8443
     targetPort: 8443 
 ---
@@ -95,6 +96,7 @@ metadata:
   annotations: 
     cert-manager.io/issuer: "lamassu-ca-issuer"
     kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   tls:
   - hosts:
@@ -111,8 +113,7 @@ spec:
             name: "auth"
             port:
               number: 8080
-  - host: auth.dev.lamassu.io
-    http: 
+      http: 
       paths:
       - pathType: Prefix
         path: /
