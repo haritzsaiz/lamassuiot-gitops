@@ -5,9 +5,10 @@ metadata:
   namespace: default
 spec:
   isCA: false
-  commonName: jaeger
+  commonName: jaeger*
   dnsNames:
     - "jaeger"
+    - "jaeger*"
   secretName: jaeger-cert-secret
   privateKey:
     algorithm: ECDSA
@@ -69,7 +70,7 @@ spec:
               mountPath: /badger
           ports:
             - containerPort: 6831
-            - containerPort: 16686
+              containerPort: 16686
           env:
             - name: SPAN_STORAGE_TYPE
               value: badger
@@ -93,10 +94,10 @@ spec:
     app: jaeger
   type: ClusterIP
   ports:
-  - name: jaeger
+  - name: udp
     port: 6831
     targetPort: 6831
-  - name: jaeger-http
+  - name: http
     port: 16686
     targetPort: 16686
 ---
@@ -124,7 +125,6 @@ spec:
             name: "jaeger"
             port:
               number: 6831
-  - host: jaeger.dev.lamassu.io
     http: 
       paths:
       - pathType: Prefix
