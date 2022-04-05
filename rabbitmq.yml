@@ -5,9 +5,10 @@ metadata:
   namespace: default
 spec:
   isCA: false
-  commonName: rabbitmq
+  commonName: rabbitmq*
   dnsNames:
     - "rabbitmq"
+    - "rabbitmq*"
   secretName: rabbitmq-cert-secret
   privateKey:
     algorithm: ECDSA
@@ -23,48 +24,28 @@ metadata:
   name: rabbitmq-cm
   namespace: default
 data:
-  config.json: |
-    {
-      "log": {
-          "file": {
-              "level": "debug"
-          }
-      },
-      "listeners": {
-          "tcp": "none",
-          "ssl": {
-              "default": 5671
-          }
-      },
-      "ssl_options": {
-          "cacertfile": "/certs/internal-ca.crt",
-          "certfile": "/certs/tls.crt",
-          "keyfile": "/certs/tls.key",
-          "verify": "verify_peer",
-          "fail_if_no_peer_cert": true
-      },
-      "ssl_cert_login_from": "common_name",
-      "auth_backends": {
-          "1": "rabbit_auth_backend_internal"
-      },
-      "auth_mechanisms": {
-          "1": "PLAIN",
-          "2": "EXTERNAL"
-      },
-      "management": {
-          "ssl": {
-              "cacertfile": "/certs/internal-ca.crt",
-              "certfile": "/certs/tls.crt",
-              "keyfile": "/certs/tls.key"
-          },
-          "cors": {
-              "allow_origins": {
-                  "1": "*"
-              }
-          }
+  rabbitmq.conf: |
+    log.file.level = debug
 
-      }
-    }
+    listeners.tcp = none
+
+    listeners.ssl.default = 5671
+
+    ssl_options.cacertfile = /certs/internal-ca.crt
+    ssl_options.certfile   = /certs/tls.crt
+    ssl_options.keyfile    = /certs/tls.key
+    ssl_options.verify     = verify_none
+
+    ssl_cert_login_from = common_name
+
+    auth_backends.1   = rabbit_auth_backend_internal
+    auth_mechanisms.1 = PLAIN
+    auth_mechanisms.2 = EXTERNAL
+    
+    management.ssl.cacertfile = /certs/internal-ca.crt
+    management.ssl.certfile   = /certs/tls.crt
+    management.ssl.keyfile    = /certs/tls.key
+    management.cors.allow_origins.1 = *
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -101,7 +82,7 @@ spec:
               subPath: ca.crt
           ports:
             - containerPort: 5671
-            - containerPort: 15672
+            - containerPort: 15671
 
       restartPolicy: Always
       volumes:
@@ -122,12 +103,12 @@ spec:
     app: rabbitmq
   type: ClusterIP
   ports:
-  - name: rabbitmq-amqps
+  - name: amqp
     port: 5671
     targetPort: 5671
-  - name: rabbitmq-ui
-    port: 15672
-    targetPort: 15672
+  - name: https
+    port: 15671
+    targetPort: 15671
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -137,6 +118,7 @@ metadata:
   annotations: 
     cert-manager.io/issuer: "lamassu-ca-issuer"
     kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   tls:
   - hosts:
@@ -150,16 +132,6 @@ spec:
         path: /
         backend: 
           service: 
-            name: "rabbitmq-amqps"
+            name: "rabbitmq"
             port:
-              number: 5671
-  - host: rabbitmq.dev.lamassu.io
-    http: 
-      paths:
-      - pathType: Prefix
-        path: /
-        backend: 
-          service: 
-            name: "rabbitmq-ui"
-            port:
-              number: 15672
+              number: 15671
