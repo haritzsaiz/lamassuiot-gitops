@@ -29,6 +29,7 @@ kubectl delete secret vault-cert-secret -n lamassu
 
 Delete the "/data" folder created in the node
 ```
-sudo rm -r ../../../../../data/
+cd
+sudo rm -r ../../data/
 ```
 
