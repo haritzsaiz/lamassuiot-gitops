@@ -9,7 +9,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: root-ca-cert
-  namespace: default
+  namespace: {{.Release.Namespace}}
 spec:
   isCA: true
   commonName: lamassu-ca
@@ -26,7 +26,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: lamassu-ca-issuer
-  namespace: default
+  namespace: {{.Release.Namespace}}
 spec:
   ca:
     secretName: root-ca-cert-secret
@@ -35,17 +35,17 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: lamassu-downstream-cert
-  namespace: default
+  namespace: {{.Release.Namespace}}
 spec:
   isCA: false
-  commonName: dev.lamassu.io
+  commonName: {{.Values.Domain}}
   secretName: downstream-crt-secret
   privateKey:
     algorithm: ECDSA
     size: 256
   dnsNames:
-    - "*.dev.lamassu.io"
-    - "dev.lamassu.io"
+    - "*.{{.Values.Domain}}"
+    - "{{.Values.Domain}}"
   issuerRef:
     name: lamassu-selfsigned-issuer
     kind: ClusterIssuer

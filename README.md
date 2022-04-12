@@ -1,51 +1,41 @@
-KUBECTL:
+Namespace: lamassu
 
-Aplicar los YML:
+**HELM:**
+
+
+Helm install
 ```
-kubectl apply -f certs.yml
-kubectl apply -f consul.yml
-kubectl apply -f vault.yml
-kubectl apply -f secret-job.yml
-kubectl apply -f lamassu-ca.yml
-kubectl apply -f rabbitmq.yml
-kubectl apply -f jaeger.yml
-kubectl apply -f lamassu-db.yml
-kubectl apply -f auth.yml
-kubectl apply -f opa-server.yml
-kubectl apply -f ui.yml
-kubectl apply -f users-job.yml
+helm install lamassu . -n lamassu
+
 ```
-Borrar los YML: 
+Helm uninstall
 ```
-kubectl delete -f certs.yml
-kubectl delete -f consul.yml
-kubectl delete -f vault.yml
-kubectl delete -f secret-job.yml
-kubectl delete -f lamassu-ca.yml
-kubectl delete -f rabbitmq.yml
-kubectl delete -f jaeger.yml
-kubectl delete -f lamassu-db.yml
-kubectl delete -f auth.yml
-kubectl delete -f opa-server.yml
-kubectl delete -f ui.yml
-kubectl delete -f users-job.yml
+helm uninstall lamassu -n lamassu
 ```
-Borrar los SECRET:
+
+Delete all secrets created
 ```
-kubectl delete secret auth-cert-secret
-kubectl delete secret jaeger-cert-secret
-kubectl delete secret lamassu-db-cert-secret
-kubectl delete secret rabbitmq-cert-secret
-kubectl delete secret lamassu-ca-cert-secret
-kubectl delete secret lamassu-ca-vault-credentials
-kubectl delete secret vault-credentials-file
-kubectl delete secret vault-cert-secret
-kubectl delete secret consul-cert-secret
-kubectl delete secret downstream-crt-secret
-kubectl delete secret root-ca-cert-secret
+kubectl delete secret auth-cert-secret -n lamassu
+kubectl delete secret consul-cert-secret -n lamassu
+kubectl delete secret downstream-crt-secret -n lamassu
+kubectl delete secret jaeger-cert-secret -n lamassu
+kubectl delete secret lamassu-ca-cert-secret -n lamassu
+kubectl delete secret lamassu-ca-vault-credentials -n lamassu
+kubectl delete secret lamassu-db-cert-secret -n lamassu
+kubectl delete secret rabbitmq-cert-secret -n lamassu
+kubectl delete secret root-ca-cert-secret -n lamassu
+kubectl delete secret ui-cert-secret -n lamassu
+kubectl delete secret vault-credentials-file -n lamassu
+kubectl delete secret vault-cert-secret -n lamassu
+kubectl delete secret lamassu-device-manager-cert-secret -n lamassu
+kubectl delete secret lamassu-dms-enroller-cert-secret -n lamassu
+kubectl delete secret test -n lamassu
+kubectl delete secret test2 -n lamassu
 ```
-Borrar las carpetas "data" creadas en los nodos
+
+Delete the "/data" folder created in the node
 ```
 cd
 sudo rm -r ../../data/
 ```
+

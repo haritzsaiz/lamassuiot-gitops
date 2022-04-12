@@ -2,17 +2,17 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: opa-server-policy-cm
-  namespace: default
+  namespace: {{.Release.Namespace}}
 data:
   policy.rego: |
     package lamassu.gateway.security
 
     import input.attributes.request.http as http_request
 
-    default allow = false
+    default allow = true
 
-    allow  {
-        action_allowed
+    allow {
+      action_allowed
     }
 
     action_allowed {
@@ -44,7 +44,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: opa-server-config-cm
-  namespace: default
+  namespace: {{.Release.Namespace}}
 data:
   config.yaml: |
     plugins:
@@ -60,7 +60,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:  
   name: opa-server-deployment
-  namespace: default
+  namespace: {{.Release.Namespace}}
   labels:
     app: opa-server
 spec:
@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
         - name: opa-server
-          image: openpolicyagent/opa:0.37.1-envoy
+          image: {{.Values.Image.Opa}}
           volumeMounts:
             - name: opa-server-policy-config
               mountPath: /opa/policy.rego
@@ -108,7 +108,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: opa-server
-  namespace: default
+  namespace: {{.Release.Namespace}}
 spec:
   selector:
     app: opa-server
@@ -120,12 +120,13 @@ spec:
   - name: https
     port: 8181
     targetPort: 8181
+    protocol: TCP
 # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata: 
 #   name: opa-server-ingress
-#   namespace: default
+#   namespace: {{.Release.Namespace}}
 #   annotations: 
 #     cert-manager.io/issuer: "lamassu-ca-issuer"
 #     kubernetes.io/ingress.class: "nginx"
@@ -133,10 +134,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - opa-server.dev.lamassu.io
+#     - opa-server.{{.Values.Domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: opa-server.dev.lamassu.io
+#   - host: opa-server.{{.Values.Domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix
