@@ -55,26 +55,12 @@ metadata:
   name: consul-pvc
   namespace: {{.Release.Namespace}}
 spec:
+  storageClassName: {{ .Values.storageClassName }}
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage:  100Mi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: consul-pv
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 100Mi
-  claimRef:
-    namespace: {{.Release.Namespace}}
-    name: consul-pvc
-  hostPath:
-    path: {{.Values.paths.consul_pv}}
 ---
 apiVersion: apps/v1
 kind: Deployment
