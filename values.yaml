@@ -19,7 +19,7 @@ image:
   auth: lamassuiot/lamassu-auth:v1.0.12
   rabbitmq: lamassuiot/lamassu-rabbitmq:v1.0.12
   opa: openpolicyagent/opa:0.37.1-envoy
-  ui: lamassuiot/lamassu-ui:v0.0.14
+  ui: lamassuiot/lamassu-ui:v0.0.15
   lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.23
   lamassu_device_manager: lamassuiot/lamassu-device-manager:v0.0.9
   api_gateway: lamassuiot/lamassu-gateway:v1.0.12
