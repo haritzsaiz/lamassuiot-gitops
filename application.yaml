@@ -6,8 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://gitlab.com/haritz.saiz/lamassu-kubernetes.git
-    targetRevision: HEAD
+    chart: lamassu
+    repoURL: https://gitlab.com/api/v4/projects/35620446/packages/helm/stable
+    targetRevision: 0.1.0
     helm:
       releaseName: lamassu
   destination:

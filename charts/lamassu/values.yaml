@@ -6,7 +6,7 @@ domain: dev.lamassu.io
 
 device_manager_minimum_reenroll_days: 30
 
-storageClassName: ikl-gfs
+storageClassName: hostpath
 
 image:
   consul: consul:1.9
