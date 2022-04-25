@@ -48,7 +48,7 @@ spec:
             - name: REACT_APP_AUTH_CLIENT_ID
               value: "frontend"
             - name: REACT_APP_LAMASSU_CLOUD_PROXY_API
-              value: "https://{{.Values.domain}}:8081"
+              value: "https://{{.Values.domain}}/api/cloudproxy"
             - name: REACT_APP_LAMASSU_CA_API
               value: "https://{{.Values.domain}}/api/ca"
             - name: REACT_APP_LAMASSU_DMS_ENROLLER_API
