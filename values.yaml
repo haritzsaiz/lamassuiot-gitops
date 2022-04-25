@@ -5,11 +5,8 @@
 domain: dev.lamassu.io
 
 device_manager_minimum_reenroll_days: 30
-storageClassName: ikl-gfs
 
-paths:
-  consul_pv: "/data/consul"
-  jaeger_pv: "/data/jaeger"
+storageClassName: ikl-gfs
 
 image:
   consul: consul:1.9
