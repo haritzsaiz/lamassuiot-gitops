@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
         - name: opa-server
-          image: {{.Values.Image.Opa}}
+          image: {{.Values.image.opa}}
           volumeMounts:
             - name: opa-server-policy-config
               mountPath: /opa/policy.rego
@@ -134,10 +134,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - opa-server.{{.Values.Domain}}
+#     - opa-server.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: opa-server.{{.Values.Domain}}
+#   - host: opa-server.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

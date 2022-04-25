@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: lamassu-db
-          image: {{.Values.Image.Lamassu_db}}
+          image: {{.Values.image.lamassu_db}}
           volumeMounts:
             - name: lamassu-db-pv
               mountPath: /var/lib/postgresql/data
@@ -74,9 +74,9 @@ spec:
             - name: POSTGRES_DB
               value: postgres
             - name: POSTGRES_USER
-              value: {{.Values.Db.Postgres_user}}
+              value: {{.Values.db.postgres_user}}
             - name: POSTGRES_PASSWORD
-              value: {{.Values.Db.Postgres_password}}
+              value: {{.Values.db.postgres_password}}
       restartPolicy: Always
       volumes:
         - name: lamassu-db-pv
@@ -109,10 +109,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - lamassu-db.{{.Values.Domain}}
+#     - lamassu-db.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: lamassu-db.{{.Values.Domain}}
+#   - host: lamassu-db.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

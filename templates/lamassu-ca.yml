@@ -99,8 +99,10 @@ spec:
           args: ["cp /templates/init.sh /init.sh && chmod +x /init.sh && bash /init.sh" ]
       containers:
         - name: lamassu-ca
-          image: {{.Values.Image.Lamassu_ca}}
+          image: {{.Values.image.lamassu_ca}}
           env:
+            - name: DEBUG_MODE
+              value: "debug"
             - name: PORT
               value: "8087"
             - name: PROTOCOL
@@ -131,6 +133,8 @@ spec:
               value: /certs/internal-ca.crt
             - name: OPENAPI_ENABLE_SECURITY_SCHEMA
               value: "true"
+            - name: OPENAPI_SECURITY_OIDC_WELL_KNOWN_URL
+              value: https://auth.{{.Values.domain}}/auth/realms/lamassu/.well-known/openid-configuration
             - name: JAEGER_SERVICE_NAME
               value: lamassu-ca
             - name: JAEGER_AGENT_HOST
@@ -153,8 +157,6 @@ spec:
               value: /certs/tls.crt
             - name: KEY_FILE
               value: /certs/tls.key
-            - name: OPENAPI_SECURITY_OIDC_WELL_KNOWN_URL
-              value: https://auth.{{.Values.Domain}}/auth/realms/lamassu/.well-known/openid-configuration
           volumeMounts:
             - name: lamassu-ca-json-config
               mountPath: /config/vault-credentials.json
@@ -213,10 +215,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - lamassu-ca.{{.Values.Domain}}
+#     - lamassu-ca.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: lamassu-ca.{{.Values.Domain}}
+#   - host: lamassu-ca.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

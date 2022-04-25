@@ -5,10 +5,10 @@ metadata:
   namespace: {{.Release.Namespace}}
 spec:
   isCA: false
-  commonName: {{.Values.Domain}}
+  commonName: {{.Values.domain}}
   dnsNames:
-    - "{{.Values.Domain}}"
-    - "*.{{.Values.Domain}}"
+    - "{{.Values.domain}}"
+    - "*.{{.Values.domain}}"
   secretName: test
   privateKey:
     algorithm: ECDSA
@@ -117,7 +117,7 @@ data:
                       virtual_hosts:
                         - name: apis_ui
                           domains:
-                            - {{.Values.Domain}}
+                            - {{.Values.domain}}
                           routes:
                             - match:
                                 safe_regex:
@@ -208,7 +208,7 @@ data:
 
                         - name: vault
                           domains:
-                            - "vault.{{.Values.Domain}}"
+                            - "vault.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -224,7 +224,7 @@ data:
 
                         - name: rabbitmq
                           domains:
-                            - "rabbitmq.{{.Values.Domain}}"
+                            - "rabbitmq.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -242,7 +242,7 @@ data:
 
                         - name: rabbitmq-ui
                           domains:
-                            - "ui-rabbitmq.{{.Values.Domain}}"
+                            - "ui-rabbitmq.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -256,7 +256,7 @@ data:
 
                         - name: consul
                           domains:
-                            - "consul.{{.Values.Domain}}"
+                            - "consul.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -273,7 +273,7 @@ data:
 
                         - name: auth
                           domains:
-                            - "auth.{{.Values.Domain}}"
+                            - "auth.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -290,7 +290,7 @@ data:
 
                         - name: jaeger-tracing
                           domains:
-                            - "tracing.{{.Values.Domain}}"
+                            - "tracing.{{.Values.domain}}"
                           routes:
                             - match:
                                 prefix: "/"
@@ -338,17 +338,17 @@ data:
                                 prefix: "/"
                                 headers: 
                                   - name: ":authority"
-                                    exact_match: "tracing.{{.Values.Domain}}"
+                                    exact_match: "tracing.{{.Values.domain}}"
                             - match:
                                 prefix: "/"
                                 headers: 
                                   - name: ":authority"
-                                    exact_match: "rabbitmq.{{.Values.Domain}}"
+                                    exact_match: "rabbitmq.{{.Values.domain}}"
                             - match:
                                 prefix: "/"
                                 headers: 
                                   - name: ":authority"
-                                    exact_match: "ui-rabbitmq.{{.Values.Domain}}"
+                                    exact_match: "ui-rabbitmq.{{.Values.domain}}"
                             - match:
                                 prefix: "/api/devmanager/.well-known/est"
                             - match:
@@ -596,7 +596,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: {{.Values.Image.Api_gateway}}
+          image: {{.Values.image.api_gateway}}
           volumeMounts:
             - name: api-gateway-yaml-config
               mountPath: /tmpl/envoy.yaml.tmpl
@@ -625,7 +625,7 @@ spec:
             - containerPort: 9900
           env:
             - name: DOMAIN
-              value: {{.Values.Domain}}
+              value: {{.Values.domain}}
             - name: DEBUG_MODE
               value: "false"
           args:
@@ -680,11 +680,11 @@ metadata:
 spec:
   # tls:
   # - hosts:
-  #   - {{.Values.Domain}}
-  #   - "*.{{.Values.Domain}}"
+  #   - {{.Values.domain}}
+  #   - "*.{{.Values.domain}}"
   #   secretName: test
   rules:
-  - host: {{.Values.Domain}}
+  - host: {{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix
@@ -694,7 +694,7 @@ spec:
             name: "api-gateway"
             port:
               number: 443
-  - host: consul.{{.Values.Domain}}
+  - host: consul.{{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix
@@ -704,7 +704,7 @@ spec:
             name: "api-gateway"
             port:
               number: 443
-  - host: vault.{{.Values.Domain}}
+  - host: vault.{{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix
@@ -714,7 +714,7 @@ spec:
             name: "api-gateway"
             port:
               number: 443
-  - host: rabbitmq.{{.Values.Domain}}
+  - host: rabbitmq.{{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix
@@ -724,7 +724,7 @@ spec:
             name: "api-gateway"
             port:
               number: 443
-  - host: tracing.{{.Values.Domain}}
+  - host: tracing.{{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix
@@ -734,7 +734,7 @@ spec:
             name: "api-gateway"
             port:
               number: 443
-  - host: auth.{{.Values.Domain}}
+  - host: auth.{{.Values.domain}}
     http: 
       paths:
       - pathType: Prefix

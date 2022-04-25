@@ -74,7 +74,7 @@ spec:
     namespace: {{.Release.Namespace}}
     name: consul-pvc
   hostPath:
-    path: {{.Values.Paths.Consul_PV}}
+    path: {{.Values.paths.consul_pv}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
         - name: consul
-          image: {{.Values.Image.Consul}}
+          image: {{.Values.image.consul}}
           volumeMounts:
             - name: consul-pv
               mountPath: /consul/data
@@ -158,10 +158,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - consul.{{.Values.Domain}}
+#     - consul.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: consul.{{.Values.Domain}}
+#   - host: consul.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

@@ -37,8 +37,10 @@ spec:
     spec:     
       containers:
         - name: device-manager
-          image: {{.Values.Image.Lamassu_device_manager}}
+          image: {{.Values.image.lamassu_device_manager}}
           env:
+            - name: DEBUG_MODE
+              value: "debug"
             - name: PORT
               value: "8089"
             - name: PROTOCOL
@@ -54,15 +56,19 @@ spec:
             - name: POSTGRES_HOSTNAME
               value: lamassu-db
             - name: POSTGRES_USER
-              value: {{.Values.Db.Db_User}}
-            - name: POSTGRES_DB
+              value: {{.Values.db.db_user}}
+            - name: POSTGRES_DEVICES_DB
               value: devices
+            - name: POSTGRES_DMS_DB
+              value: dmsenroller
+            - name: POSTGRES_MIGRATIONS_FILE_PATH
+              value: /app/db/migrations
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_PASSWORD
-              value: {{.Values.Db.Db_Password}}
+              value: {{.Values.db.db_password}}
             - name: MINIMUM_REENROLL_DAYS
-              value: "{{.Values.Device_manager_minimum_deenroll_days}}"
+              value: "{{.Values.device_manager_minimum_reenroll_days}}"
             - name: CA_CERT_FILE
               value: /certs/internal-ca.crt
             - name: CA_SERVER_ADDR
@@ -86,7 +92,7 @@ spec:
             - name: OPENAPI_ENABLE_SECURITY_SCHEMA
               value: "true"
             - name: OPENAPI_SECURITY_OIDC_WELL_KNOWN_URL
-              value: https://auth.{{.Values.Domain}}/auth/realms/lamassu/.well-known/openid-configuration
+              value: https://auth.{{.Values.domain}}/auth/realms/lamassu/.well-known/openid-configuration
           volumeMounts:
             - name: lamassu-device-manager-tls-certificates
               mountPath: /certs/tls.crt
@@ -132,10 +138,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - lamassu-device-manager.{{.Values.Domain}}
+#     - lamassu-device-manager.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: lamassu-device-manager.{{.Values.Domain}}
+#   - host: lamassu-device-manager.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

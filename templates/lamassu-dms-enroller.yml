@@ -37,8 +37,10 @@ spec:
     spec:     
       containers:
         - name: lamassu-dms-enroller
-          image: {{.Values.Image.Lamassu_dms_enroller}}
+          image: {{.Values.image.lamassu_dms_enroller}}
           env:
+            - name: DEBUG_MODE
+              value: "info"
             - name: PORT
               value: "8085"
             - name: PROTOCOL
@@ -54,9 +56,9 @@ spec:
             - name: POSTGRES_DB
               value: dmsenroller
             - name: POSTGRES_USER
-              value: {{.Values.Db.Db_User}}
+              value: {{.Values.db.db_user}}
             - name: POSTGRES_PASSWORD
-              value: {{.Values.Db.Db_Password}}
+              value: {{.Values.db.db_password}}
             - name: POSTGRES_HOSTNAME
               value: lamassu-db
             - name: POSTGRES_PORT
@@ -80,7 +82,7 @@ spec:
             - name: OPENAPI_ENABLE_SECURITY_SCHEMA
               value: "true"
             - name: OPENAPI_SECURITY_OIDC_WELL_KNOWN_URL
-              value: https://auth.{{.Values.Domain}}/auth/realms/lamassu/.well-known/openid-configuration
+              value: https://auth.{{.Values.domain}}/auth/realms/lamassu/.well-known/openid-configuration
           volumeMounts:
             - name: lamassu-dms-enroller-tls-certificates
               mountPath: /certs/tls.crt
@@ -126,10 +128,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - lamassu-dms-enroller.{{.Values.Domain}}
+#     - lamassu-dms-enroller.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: lamassu-dms-enroller.{{.Values.Domain}}
+#   - host: lamassu-dms-enroller.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

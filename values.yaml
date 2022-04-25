@@ -2,33 +2,33 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-Domain: dev.lamassu.io
+domain: dev.lamassu.io
 
-Device_manager_minimum_deenroll_days: 30
+device_manager_minimum_reenroll_days: 30
 
-Paths:
-  Consul_PV: "/data/consul"
-  Jaeger_PV: "/data/jaeger"
+paths:
+  consul_pv: "/data/consul"
+  jaeger_pv: "/data/jaeger"
 
-Image:
-  Consul: consul:1.9
-  Vault: vault:1.7.3
-  Lamassu_ca: lamassuiot/lamassu-ca:v1.0.18
-  Jaeger: jaegertracing/all-in-one:1.30.0
-  Lamassu_db: lamassuiot/lamassu-db:v1.0.5
-  Auth: lamassuiot/lamassu-auth:v1.0.5
-  Rabbitmq: lamassuiot/lamassu-rabbitmq:v1.0.5
-  Opa: openpolicyagent/opa:0.37.1-envoy
-  Ui: lamassuiot/lamassu-ui:v0.0.6
-  Lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.12
-  Lamassu_device_manager: lamassuiot/lamassu-device-manager:v0.0.4
-  Api_gateway: lamassuiot/lamassu-gateway:v1.0.5
+image:
+  consul: consul:1.9
+  vault: vault:1.7.3
+  lamassu_ca: lamassuiot/lamassu-ca:v1.0.18
+  jaeger: jaegertracing/all-in-one:1.30.0
+  lamassu_db: lamassuiot/lamassu-db:v1.0.11
+  auth: lamassuiot/lamassu-auth:v1.0.11
+  rabbitmq: lamassuiot/lamassu-rabbitmq:v1.0.11
+  opa: openpolicyagent/opa:0.37.1-envoy
+  ui: lamassuiot/lamassu-ui:v0.0.11
+  lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.21
+  lamassu_device_manager: lamassuiot/lamassu-device-manager:v0.0.9
+  api_gateway: lamassuiot/lamassu-gateway:v1.0.11
 
-Db:
-  Postgres_user: admin
-  Postgres_password: admin
+db:
+  postgres_user: admin
+  postgres_password: admin
   #Creo que Postgres_db=Db_User
-  Db_User: admin
-  Db_Password: admin
-  Keycloak_User: admin
-  Keycloak_Password: admin
+  db_user: admin
+  db_password: admin
+  keycloak_user: admin
+  keycloak_password: admin

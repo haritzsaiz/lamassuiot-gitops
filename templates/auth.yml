@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: {{.Values.Image.Auth}}
+          image: {{.Values.image.auth}}
           volumeMounts:          
             - name: auth-tls-certificates
               mountPath: /etc/x509/https/tls.crt
@@ -56,13 +56,13 @@ spec:
             - name: DB_DATABASE
               value: auth
             - name: DB_USER
-              value: {{.Values.Db.Db_User}}
+              value: {{.Values.db.db_user}}
             - name: DB_PASSWORD
-              value: {{.Values.Db.Db_Password}}
+              value: {{.Values.db.db_password}}
             - name: KEYCLOAK_USER
-              value: {{.Values.Db.Db_User}}
+              value: {{.Values.db.keycloak_user}}
             - name: KEYCLOAK_PASSWORD
-              value: {{.Values.Db.Db_Password}}
+              value: {{.Values.db.keycloak_password}}
             - name: KEYCLOAK_IMPORT
               value: /tmp/lamassu.json
       restartPolicy: Always
@@ -102,10 +102,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - auth.{{.Values.Domain}}
+#     - auth.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: auth.{{.Values.Domain}}
+#   - host: auth.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

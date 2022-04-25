@@ -43,7 +43,7 @@ spec:
     namespace: {{.Release.Namespace}}
     name: jaeger-pvc
   hostPath:
-    path: {{.Values.Paths.Jaeger_PV}}
+    path: {{.Values.paths.jaeger_pv}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: jaeger
-          image: {{.Values.Image.Jaeger}}
+          image: {{.Values.image.jaeger}}
           volumeMounts:
             - name: jaeger-pv
               mountPath: /badger
@@ -114,10 +114,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - jaeger.{{.Values.Domain}}
+#     - jaeger.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: jaeger.{{.Values.Domain}}
+#   - host: jaeger.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix

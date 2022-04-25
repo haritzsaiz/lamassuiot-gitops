@@ -38,14 +38,14 @@ metadata:
   namespace: {{.Release.Namespace}}
 spec:
   isCA: false
-  commonName: {{.Values.Domain}}
+  commonName: {{.Values.domain}}
   secretName: downstream-crt-secret
   privateKey:
     algorithm: ECDSA
     size: 256
   dnsNames:
-    - "*.{{.Values.Domain}}"
-    - "{{.Values.Domain}}"
+    - "*.{{.Values.domain}}"
+    - "{{.Values.domain}}"
   issuerRef:
     name: lamassu-selfsigned-issuer
     kind: ClusterIssuer

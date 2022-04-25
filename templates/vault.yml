@@ -62,7 +62,7 @@ spec:
     spec:
       containers:
         - name: vault
-          image: {{.Values.Image.Vault}}
+          image: {{.Values.image.vault}}
           volumeMounts:
             - name: vault-json-config
               mountPath: /vault/config/config.json
@@ -83,7 +83,7 @@ spec:
             - name: VAULT_DISABLE_MLOCK
               value: "true"
             - name: VAULT_API_ADDR
-              value: https://vault.{{.Values.Domain}}:8200
+              value: https://vault.{{.Values.domain}}:8200
           command: ["vault", "server", "-config", "/vault/config/config.json"]
       restartPolicy: Always
       volumes:
@@ -121,10 +121,10 @@ spec:
 # spec:
 #   tls:
 #   - hosts:
-#     - vault.{{.Values.Domain}}
+#     - vault.{{.Values.domain}}
 #     secretName: downstream-crt-secret
 #   rules:
-#   - host: vault.{{.Values.Domain}}
+#   - host: vault.{{.Values.domain}}
 #     http: 
 #       paths:
 #       - pathType: Prefix
