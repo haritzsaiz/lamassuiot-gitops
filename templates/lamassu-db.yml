@@ -24,26 +24,12 @@ metadata:
   name: lamassu-db-pvc
   namespace: {{.Release.Namespace}}
 spec:
+  storageClassName: {{ .Values.storageClassName }}
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
       storage:  100Mi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: lamassu-db-pv
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 100Mi
-  claimRef:
-    namespace: {{.Release.Namespace}}
-    name: lamassu-db-pvc
-  hostPath:
-    path: "/data/lamassu-db"
 ---
 apiVersion: apps/v1
 kind: Deployment

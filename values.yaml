@@ -5,6 +5,7 @@
 domain: dev.lamassu.io
 
 device_manager_minimum_reenroll_days: 30
+storageClassName: ikl-gfs
 
 paths:
   consul_pv: "/data/consul"
