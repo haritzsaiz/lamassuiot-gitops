@@ -40,3 +40,15 @@ cd
 sudo rm -r ../../data/
 ```
 
+# ArgoCD
+
+`
+argocd app create lamassu-gitops \
+--repo https://gitlab.com/haritz.saiz/lamassu-kubernetes.git \
+--path . \
+--dest-server https://kubernetes.default.svc \
+--dest-namespace lamassu \
+--sync-policy automated \
+--auto-prune \
+--self-heal
+`

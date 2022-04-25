@@ -3,9 +3,7 @@
 # Declare variables to be passed into your templates.
 
 domain: dev.lamassu.io
-
 device_manager_minimum_reenroll_days: 30
-
 storageClassName: hostpath
 
 image:
@@ -26,7 +24,6 @@ image:
 db:
   postgres_user: admin
   postgres_password: admin
-  #Creo que Postgres_db=Db_User
   db_user: admin
   db_password: admin
   keycloak_user: admin
