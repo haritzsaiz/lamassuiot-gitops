@@ -29,6 +29,7 @@ kubectl delete secret vault-credentials-file -n lamassu
 kubectl delete secret vault-cert-secret -n lamassu
 kubectl delete secret lamassu-device-manager-cert-secret -n lamassu
 kubectl delete secret lamassu-dms-enroller-cert-secret -n lamassu
+kubectl delete secret lamassu-cloud-proxy-cert-secret -n lamassu
 kubectl delete secret test -n lamassu
 kubectl delete secret test2 -n lamassu
 ```

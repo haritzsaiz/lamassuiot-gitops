@@ -98,7 +98,7 @@ spec:
 
             - name: AMQP_SERVER_PORT
               value: "5671"
-            - name: AMQP_SERVER_PORT
+            - name: AMQP_SERVER_HOST
               value: "rabbitmq"
             - name: AMQP_CLIENT_CERT
               value: /certs/tls.crt

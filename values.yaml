@@ -15,14 +15,14 @@ image:
   vault: vault:1.7.3
   lamassu_ca: lamassuiot/lamassu-ca:v1.0.18
   jaeger: jaegertracing/all-in-one:1.30.0
-  lamassu_db: lamassuiot/lamassu-db:v1.0.11
-  auth: lamassuiot/lamassu-auth:v1.0.11
-  rabbitmq: lamassuiot/lamassu-rabbitmq:v1.0.11
+  lamassu_db: lamassuiot/lamassu-db:v1.0.12
+  auth: lamassuiot/lamassu-auth:v1.0.12
+  rabbitmq: lamassuiot/lamassu-rabbitmq:v1.0.12
   opa: openpolicyagent/opa:0.37.1-envoy
-  ui: lamassuiot/lamassu-ui:v0.0.13
-  lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.21
+  ui: lamassuiot/lamassu-ui:v0.0.14
+  lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.23
   lamassu_device_manager: lamassuiot/lamassu-device-manager:v0.0.9
-  api_gateway: lamassuiot/lamassu-gateway:v1.0.11
+  api_gateway: lamassuiot/lamassu-gateway:v1.0.12
   cloud_proxy: lamassuiot/lamassu-cloud-proxy:v0.0.1
 
 db:
