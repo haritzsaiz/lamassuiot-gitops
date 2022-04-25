@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lamassu
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://gitlab.com/haritz.saiz/lamassu-kubernetes.git
+    targetRevision: HEAD
+    helm:
+      releaseName: lamassu
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lamassu
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
