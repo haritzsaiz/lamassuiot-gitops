@@ -42,7 +42,7 @@ sudo rm -r ../../data/
 
 # ArgoCD
 
-`
+```
 argocd app create lamassu-gitops \
 --repo https://gitlab.com/haritz.saiz/lamassu-kubernetes.git \
 --path . \
@@ -51,4 +51,4 @@ argocd app create lamassu-gitops \
 --sync-policy automated \
 --auto-prune \
 --self-heal
-`
+```
