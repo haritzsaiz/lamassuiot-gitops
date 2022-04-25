@@ -186,7 +186,6 @@ spec:
         - name: lamassu-ca-tls-certificates
           secret:
             secretName: lamassu-ca-cert-secret
-      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service

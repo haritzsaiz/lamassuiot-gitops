@@ -23,6 +23,7 @@ image:
   lamassu_dms_enroller: lamassuiot/lamassu-dms-enroller:v0.0.21
   lamassu_device_manager: lamassuiot/lamassu-device-manager:v0.0.9
   api_gateway: lamassuiot/lamassu-gateway:v1.0.11
+  cloud_proxy: lamassuiot/lamassu-cloud-proxy:v0.0.1
 
 db:
   postgres_user: admin

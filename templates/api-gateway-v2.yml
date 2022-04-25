@@ -181,6 +181,12 @@ data:
                               route:
                                 prefix_rewrite: "/"
                                 cluster: api_ca_cluster
+                                
+                            - match:
+                                prefix: "/api/cloudproxy/"
+                              route:
+                                prefix_rewrite: "/"
+                                cluster: api_cloud_proxy_cluster
 
                             - match:
                                 prefix: "/api/devmanager/"
@@ -453,6 +459,39 @@ data:
                         socket_address:
                           address: lamassu-dms-enroller
                           port_value: 8085
+          health_checks:
+            - interval: 60s
+              timeout: 2s
+              interval_jitter: 1s
+              unhealthy_threshold: 1
+              healthy_threshold: 1
+              http_health_check:
+                path: /v1/health
+          transport_socket:
+            name: envoy.transport_sockets.tls
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+              # mTLS config between API_GW and UPSTREAM Service
+              common_tls_context:
+                tls_certificates:
+                  - certificate_chain:
+                      filename: /certs/upstream.crt
+                    private_key:
+                      filename: /certs/upstream.key
+
+        - name: api_cloud_proxy_cluster
+          connect_timeout: 0.25s
+          type: STRICT_DNS
+          lb_policy: ROUND_ROBIN
+          load_assignment:
+            cluster_name: lamassu-cloud-proxy
+            endpoints:
+              - lb_endpoints:
+                  - endpoint:
+                      address:
+                        socket_address:
+                          address: lamassu-cloud-proxy
+                          port_value: 8081
           health_checks:
             - interval: 60s
               timeout: 2s
