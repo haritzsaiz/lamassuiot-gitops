@@ -140,4 +140,4 @@ spec:
     - destination:
         port:
           number: 8500
-        host: "*"
+        host: "consul.{{.Values.domain}}"
