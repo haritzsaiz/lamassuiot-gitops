@@ -30,15 +30,12 @@ data:
       "listener": {
           "tcp": {
               "address": "0.0.0.0:8200",
-              "tls_cert_file": "/vault/tls/tls.crt",
-              "tls_key_file": "/vault/tls/tls.key"
           }
       },
       "storage": {
           "consul": {
-              "address": "https://consul:8501",
+              "address": "https://consul:8500",
               "path": "vault",
-              "tls_ca_file": "/vault/tls/consul.crt"
           }
       }
     }
@@ -67,23 +64,13 @@ spec:
             - name: vault-json-config
               mountPath: /vault/config/config.json
               subPath: config.json
-            - name: vault-tls-certificates
-              mountPath: /vault/tls/consul.crt
-              subPath: ca.crt                      
-            - name: vault-tls-certificates
-              mountPath: /vault/tls/tls.crt
-              subPath: tls.crt
-            - name: vault-tls-certificates
-              mountPath: /vault/tls/tls.key
-              subPath: tls.key
           ports:
             - containerPort: 8200
-            # - containerPort: 8201
           env:
             - name: VAULT_DISABLE_MLOCK
               value: "true"
             - name: VAULT_API_ADDR
-              value: https://vault.{{.Values.domain}}:8200
+              value: https://vault.:8200
           command: ["vault", "server", "-config", "/vault/config/config.json"]
       restartPolicy: Always
       volumes:
@@ -108,29 +95,3 @@ spec:
     port: 8200
     targetPort: 8200
     protocol: TCP
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: vault-ingress
-#   namespace: {{.Release.Namespace}}
-#   annotations: 
-#     cert-manager.io/issuer: "lamassu-ca-issuer"
-#     kubernetes.io/ingress.class: "nginx"
-#     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-# spec:
-#   tls:
-#   - hosts:
-#     - vault.{{.Values.domain}}
-#     secretName: downstream-crt-secret
-#   rules:
-#   - host: vault.{{.Values.domain}}
-#     http: 
-#       paths:
-#       - pathType: Prefix
-#         path: /
-#         backend: 
-#           service: 
-#             name: "vault"
-#             port:
-#               number: 8200
