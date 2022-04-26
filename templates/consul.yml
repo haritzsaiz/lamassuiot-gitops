@@ -124,8 +124,8 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: bookinfo-rule
-  namespace: bookinfo-namespace
+  name: consul-vs
+  namespace: {{.Release.Namespace}}
 spec:
   hosts:
   - consul.{{.Release.Namespace}}.svc.cluster.local
