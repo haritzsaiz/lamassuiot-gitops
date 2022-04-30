@@ -44,7 +44,7 @@ data:
     # Check if Vault is healthy
 
     echo "Waiting vault to launch on 8200..."
-    until $(curl -s -k --output /dev/null --silent --head --fail https://vault:8200); do
+    until $(curl -s -k --output /dev/null --silent --head --fail http://vault:8200); do
       printf '.'
       sleep 1
     done
