@@ -57,9 +57,6 @@ spec:
         - name: vault-json-config
           configMap:
             name: vault-cm
-        - name: vault-tls-certificates
-          secret:
-            secretName: vault-cert-secret
 ---
 apiVersion: v1
 kind: Service
