@@ -75,3 +75,24 @@ spec:
     port: 8200
     targetPort: 8200
     protocol: TCP
+
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: vault-vs
+  namespace: {{.Release.Namespace}}
+spec:
+  hosts:
+  - vault.{{.Values.domain}}
+  gateways:
+  - lamassu-gw
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8200
+        host: vault
