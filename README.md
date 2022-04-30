@@ -17,7 +17,7 @@ helm uninstall lamassu -n lamassu
 
 ```
 argocd app create lamassu-gitops \
---repo https://gitlab.com/haritz.saiz/lamassu-kubernetes-v2.git \
+--repo https://github.com/haritzsaiz/lamassuiot-gitops.git \
 --path . \
 --dest-server https://kubernetes.default.svc \
 --dest-namespace gitops-lamassu \

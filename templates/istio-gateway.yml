@@ -25,3 +25,12 @@ spec:
   #     mode: SIMPLE # enables HTTPS on this port
   #     serverCertificate: /etc/certs/servercert.pem
   #     privateKey: /etc/certs/privatekey.pem
+---
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: "default"
+  namespace: "istio-system"
+spec:
+  mtls:
+    mode: STRICT
