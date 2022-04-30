@@ -30,26 +30,6 @@ subjects:
   kind: ServiceAccount
   name: lamassu-ca-service-account
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: lamassu-ca-cert
-  namespace: {{.Release.Namespace}}
-spec:
-  isCA: false
-  commonName: lamassu-ca*
-  dnsNames:
-    - "lamassu-ca"
-    - "lamassu-ca*"
-  secretName: lamassu-ca-cert-secret
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  issuerRef:
-    name: lamassu-ca-issuer
-    kind: Issuer
-    group: cert-manager.io
----
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -106,11 +86,11 @@ spec:
             - name: PORT
               value: "8087"
             - name: PROTOCOL
-              value: https
+              value: http
             - name: OCSP_URL
               value: https://lamassu-ocsp:9098
             - name: VAULT_ADDRESS
-              value: https://vault:8200
+              value: http://vault:8200
             - name: VAULT_ROLE_ID
               valueFrom:
                 secretKeyRef:
@@ -149,30 +129,10 @@ spec:
               value: "false"
             - name: VAULT_CA
               value: /certs/vault.crt
-            - name: MUTUAL_TLS_ENABLED
-              value: "true"
-            - name: MUTUAL_TLS_CLIENT_CA
-              value: /certs/internal-ca.crt
-            - name: CERT_FILE
-              value: /certs/tls.crt
-            - name: KEY_FILE
-              value: /certs/tls.key
           volumeMounts:
             - name: lamassu-ca-json-config
               mountPath: /config/vault-credentials.json
               subPath: json-file.json
-            - name: lamassu-ca-tls-certificates
-              mountPath: /certs/vault.crt
-              subPath: ca.crt
-            - name: lamassu-ca-tls-certificates
-              mountPath: /certs/tls.crt
-              subPath: tls.crt
-            - name: lamassu-ca-tls-certificates
-              mountPath: /certs/tls.key
-              subPath: tls.key
-            - name: lamassu-ca-tls-certificates
-              mountPath: /certs/internal-ca.crt
-              subPath: ca.crt
           ports:
             - containerPort: 8087
       restartPolicy: Always
