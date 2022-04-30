@@ -7,3 +7,5 @@ storageClassName: standard
 image:
   consul: consul:1.9
   vault: vault:1.7.3
+  lamassu_ca: haritz/lamassu-ca-dev:63addc34066ce78429ad9528f77c4d65977443a3
+  rabbitmq: rabbitmq:3.9-management
